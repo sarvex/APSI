@@ -22,8 +22,8 @@ item_bc = args.item_byte_count
 sender_list = []
 letters = string.ascii_lowercase + string.ascii_uppercase
 while len(sender_list) < sender_sz:
-    item = ''.join(random.choice(letters) for i in range(item_bc))
-    label = ''.join(random.choice(letters) for i in range(label_bc))
+    item = ''.join(random.choice(letters) for _ in range(item_bc))
+    label = ''.join(random.choice(letters) for _ in range(label_bc))
     sender_list.append((item, label))
 print('Done creating sender\'s set')
 
@@ -33,13 +33,13 @@ while len(recv_set) < min(int_sz, recv_sz):
     recv_set.add(item)
 
 while len(recv_set) < recv_sz:
-    item = ''.join(random.choice(letters) for i in range(item_bc))
+    item = ''.join(random.choice(letters) for _ in range(item_bc))
     recv_set.add(item)
 print('Done creating receiver\'s set')
 
 with open("db.csv", "w") as sender_file:
     for (item, label) in sender_list:
-        sender_file.write(item + (("," + label) if label_bc != 0 else '') + '\n')
+        sender_file.write(item + (f",{label}" if label_bc != 0 else '') + '\n')
 print('Wrote sender\'s set')
 
 with open("query.csv", "w") as recv_file:
